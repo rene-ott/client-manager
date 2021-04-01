@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout.html}">
+  <head>
+    <title>Login</title>
+    <link href="/css/signin.css" rel="stylesheet">
+    <link href="/css/form-validation.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <main class="container mt-5" layout:fragment="main_content">
+
+      <form class="form-signin" novalidate method="post" th:action="@{/login}">
+        <h2 class="form-signin-heading">Please sign in</h2>
+
+        <div th:if="${param.error}" class="error-text">Invalid username or password</div>
+
+        <p>
+          <label for="username" class="sr-only">Username</label>
+          <input type="text" id="username" name="username" class="form-control" placeholder="Username"
+                 th:classappend="${param.error} ? error-input : ''">
+        </p>
+
+        <p>
+          <label for="password" class="sr-only">Password</label>
+          <input type="password" id="password" name="password" class="form-control" placeholder="Password"
+                 th:classappend="${param.error} ? error-input : ''">
+        </p>
+
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+    </main>
+  </body>
+</html>

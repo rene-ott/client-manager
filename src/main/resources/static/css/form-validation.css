@@ -1,0 +1,9 @@
+.error-input {
+  border: 2px solid #f08981;
+  border-radius: 5px;
+}
+
+.error-text {
+  color: #f08981;
+  font-size: 0.8em;
+}

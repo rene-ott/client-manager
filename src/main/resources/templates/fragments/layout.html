@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.springframework.org/schema/security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  </head>
+
+  <body class="bg-light">
+    <nav th:fragment="fragment_navbar" sec:authorize="isAuthenticated()" class="navbar navbar-dark bg-primary">
+      <h3 th:text="${#authentication.getName()}" class="text-white"></h3>
+      <form name="logoutForm" th:action="@{/logout}" method="post" class="ml-auto">
+          <button type="submit" class="btn btn btn-light float-right">Sign out</button>
+        </form>
+    </nav>
+
+    <main class="container" layout:fragment="main_content"></main>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+      <p class="mb-1">&copy; 2021 Company Name</p>
+    </footer>
+  </body>
+</html>

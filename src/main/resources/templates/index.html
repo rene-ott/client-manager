@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout.html}">
+  <head>
+    <title>Client list</title>
+  </head>
+
+  <body>
+    <main class="container" layout:fragment="main_content">
+      <div class="py-5 text-center">
+        <h2>Clients</h2>
+      </div>
+
+      <div class="row">
+        <a th:href="@{/client/add}" class="btn btn-primary">Add client</a>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Username</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="client: ${clients}">
+              <th scope="row" th:text="${clientStat.index} + 1"/>
+              <td th:text="${client.firstName}"/>
+              <td th:text="${client.lastName}"/>
+              <td th:text="${client.username}"/>
+              <td>
+                <a th:href="@{/client/edit/{id}(id=${client.id})}" class="btn btn-primary">Edit client</a>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,8 @@
+[*.html]
+indent_style = space
+indent_size = 2
+continuation_indent_size = 2
+html_add_new_line_before_tags = body,div,p,form,h1,h2,h3
+html_align_attributes = true
+html_align_text = false
+html_do_not_indent_children_of_tags =

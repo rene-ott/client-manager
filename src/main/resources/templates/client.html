@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{fragments/layout.html}">
+
+  <head>
+    <title th:text="${clientForm.id} <= 0 ? 'Add Client' : 'Edit Client'"></title>
+    <link href="/css/form-validation.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <main class="container" layout:fragment="main_content">
+      <div class="py-5 text-center">
+        <h2 th:text="${clientForm.id} <= 0 ? 'Add Client' : 'Edit Client'"></h2>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 order-md-1">
+          <form class="needs-validation"
+                novalidate
+                th:action="${clientForm.id} <= 0 ? @{/client/add} : @{/client/edit/{id}(id=${clientForm.id})}"
+                th:object="${clientForm}"
+                method="POST">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-text"></div>
+                <input type="text"
+                       class="form-control"
+                       th:field="*{firstName}"
+                       th:classappend="${#fields.hasErrors('firstName')} ? error-input : ''">
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-text"></div>
+                <input type="text"
+                       class="form-control"
+                       th:field="*{lastName}"
+                       th:classappend="${#fields.hasErrors('lastName')} ? error-input : ''">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="username">Username</label>
+              <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-text"></div>
+              <div class="input-group">
+                <input type="text"
+                       class="form-control"
+                       th:field="*{username}"
+                       th:classappend="${#fields.hasErrors('username')} ? error-input : ''">
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email">Email <span class="text-muted">(Optional)</span></label>
+              <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-text"></div>
+              <input class="form-control"
+                     th:field="*{email}"
+                     placeholder="you@example.com"
+                     th:classappend="${#fields.hasErrors('email')} ? error-input : ''">
+            </div>
+
+            <div class="mb-3">
+              <label for="address">Address</label>
+              <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="error-text"></div>
+              <input class="form-control"
+                     th:field="*{address}"
+                     placeholder="1234 Main St"
+                     th:classappend="${#fields.hasErrors('address')} ? error-input : ''">
+            </div>
+
+            <div class="mb-3">
+              <label for="countryId">Country</label>
+              <div th:if="${#fields.hasErrors('countryId')}" th:errors="*{countryId}" class="error-text"></div>
+              <select th:field="*{countryId}"
+                      class="custom-select d-block w-100"
+                      th:classappend="${#fields.hasErrors('countryId')} ? error-input : ''">
+                <option value="0">Choose...</option>
+                <option th:each="country : ${countries}" th:value="${country.id}" th:text="${country.name}">
+                </option>
+              </select>
+            </div>
+            <hr class="mb-4">
+
+            <button class="btn btn-primary btn-lg btn-block"
+                    type="submit"
+                    th:text="${clientForm.id} <= 0 ? 'Add Client' : 'Edit Client'">
+            </button>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
