@@ -2,6 +2,7 @@ package com.example.clientmanager.services;
 
 import com.example.clientmanager.data.entities.Client;
 import com.example.clientmanager.data.repositories.ClientRepository;
+import com.example.clientmanager.infrastructure.ClientNotFoundException;
 import com.example.clientmanager.infrastructure.CurrentUserAccessor;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class ClientServiceImpl implements ClientService {
         var currentUserId = currentUserAccessor.getUser().getId();
 
         if (existingClient.getUserId() != currentUserId)
-            throw new IllegalStateException("Modifying another user's client is forbidden");
+            throw new ClientNotFoundException("Modifying another user's client is forbidden");
 
         existingClient.update(client);
         clientRepository.save(existingClient);
@@ -46,12 +47,12 @@ public class ClientServiceImpl implements ClientService {
         var currentUserid = currentUserAccessor.getUser().getId();
 
         if (client.getUserId() != currentUserid)
-            throw new IllegalStateException("Viewing another user's client is forbidden");
+            throw new ClientNotFoundException("Viewing another user's client is forbidden");
 
         return client;
     }
 
     private Client findClientById(int id) {
-        return clientRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Client with id [" + id + "] not found"));
+        return clientRepository.findById(id).orElseThrow(() -> new ClientNotFoundException("Client with id [" + id + "] not found"));
     }
 }
